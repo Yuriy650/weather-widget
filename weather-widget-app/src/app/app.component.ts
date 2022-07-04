@@ -36,8 +36,7 @@ export class AppComponent implements OnDestroy {
   }
 
   public getCoordinates(coord: Coord) {
-
+    console.log(coord)
     this.coordinates = coord
-    console.log(this.coordinates)
   }
 }

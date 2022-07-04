@@ -25,6 +25,7 @@ export class CityCardComponent implements OnInit, OnDestroy, OnChanges {
   _subCityId = Subscription.EMPTY;
   constructor(private readonly weatherService: FetchWeatherService,
               private readonly store$: Store) {
+    this.getWeather()
     this.date = Date.now();
     /*this._subCoord = this.store$.select(selectCoords).subscribe(coords => {
       //this.coords = coords;
