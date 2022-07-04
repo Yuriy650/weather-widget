@@ -1,0 +1,75 @@
+<div class="left-block">
+  <div class="city">
+    <div class="parameters">
+      <img
+        class="parameters-img country"
+        src="/assets/images/country.png"
+        alt="humidity"
+        height="25px"
+        width="25px">
+      <div class="parameters-country">{{ weatherData?.sys?.country }}</div>
+    </div>
+      <div class="city-name">{{weatherData?.name}}</div>
+  </div>
+  <div class="coords">
+    <div class="coords-param">latitude: {{weatherData?.coord?.lat}}</div>
+    <div class="coords-param">longitude: {{weatherData?.coord?.lon}}</div>
+  </div>
+  <div class="city-date">{{date | date:'MMMM d'}}</div>
+  <div class="city-date">{{date | date:'EEEE'}}</div>
+  <div class="temperature">
+    <img alt="thermometer" width="50px" height="50px" src="https://upload.wikimedia.org/wikipedia/en/d/d5/Thermometer_icon.png">
+    <div class="temp-real">{{weatherData?.main?.temp}}°</div>
+  </div>
+  <div class="temp-feel">Feels like {{weatherData?.main?.feels_like}}°</div>
+</div>
+<app-weather-condition [weatherData]="weatherData"></app-weather-condition>
+<div class="right-block">
+  <div class="parameters">
+    <img
+          class="parameters-img"
+          alt="sunrise"
+         height="25px"
+         src="https://cdn-icons-png.flaticon.com/512/728/728123.png"
+         width="25px">
+    <div class="parameters-data">{{ weatherData?.sys?.sunrise | date:'shortTime'}}</div>
+  </div>
+  <div class="parameters">
+    <img
+      class="parameters-img"
+      alt="sunset"
+         height="25px"
+         src="https://cdn-icons-png.flaticon.com/512/362/362409.png"
+         width="25px">
+    <div class="parameters-data">{{ weatherData?.sys?.sunset | date:'shortTime'}}</div>
+  </div>
+  <div class="parameters">
+    <img
+      class="parameters-img"
+      alt="humidity"
+      height="25px"
+      src="https://icons.iconarchive.com/icons/custom-icon-design/lovely-weather-2/512/Humidity-icon.png"
+      width="25px">
+    <div class="parameters-data">{{ weatherData?.main?.humidity }} %</div>
+  </div>
+  <div class="parameters">
+    <img
+      class="parameters-img"
+      alt="humidity"
+      height="25px"
+      src="https://cdn1.iconfinder.com/data/icons/hawcons/32/700211-icon-43-wind-512.png"
+      width="25px">
+    <div class="parameters-data">{{ weatherData?.wind?.speed }} km/h</div>
+  </div>
+  <div class="parameters">
+    <img
+      class="parameters-img"
+      alt="humidity"
+      height="25px"
+      src="/assets/images/pressure-icon.png"
+      width="25px">
+    <div class="parameters-data">{{ weatherData?.main?.pressure }} mb</div>
+  </div>
+</div>
+
+

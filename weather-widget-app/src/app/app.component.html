@@ -1,1 +1,5 @@
-<h2>Weather Widget</h2>
+<app-coord-form (coordEvent)="getCoordinates($event)"></app-coord-form>
+<app-city-card [currentId]="currentId" [coordinates]="coordinates" (citiesEvent)="getCities($event)"></app-city-card>
+<app-cities-list [cities]="citiesArray" (cityIdEvent)="getCurrentCityId($event)"></app-cities-list>
+
+

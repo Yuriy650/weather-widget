@@ -1,0 +1,25 @@
+<cdk-virtual-scroll-viewport #scrollRef
+                             (scroll)="onScroll($event)"
+                             class="cities-viewport"
+                             itemSize="150">
+  <div class="cities-list">
+    <div (click)="getCurrentCity(city)" *ngFor="let city of cities" class="city-sm-card">
+      <div>{{ city?.sys?.country }}</div>
+      <div>{{ city.name }}</div>
+      <app-weather-condition [weatherData]="city"></app-weather-condition>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>
+<button
+  (click)="scrollCities()"
+  class="btn-scroll-next"
+>
+  <
+</button>
+<button
+  (click)="scrollCitiesBack()"
+  class="btn-scroll-next next"
+>
+  >
+</button>
+

@@ -1,0 +1,7 @@
+<div class="center-block" *ngFor="let item of weatherData?.weather">
+  <img class="weather-icon" *ngIf="item.main === 'Clouds'" src="/assets/images/sun-sm-cloud-icon.png" alt="clouds">
+  <img class="weather-icon" *ngIf="item.main === 'Rain'" src="/assets/images/rain-icon.png" alt="rain">
+  <img class="weather-icon" *ngIf="item.main === 'Clear'" src="/assets/images/sun-small.png" alt="sun">
+  <img class="weather-icon" *ngIf="item.main === 'Snow'" src="/assets/images/snow-icon.png" alt="snow">
+  <div class="weather-title" >{{ item.main }}</div>
+</div>

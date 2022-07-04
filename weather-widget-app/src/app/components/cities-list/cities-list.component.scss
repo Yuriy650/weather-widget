@@ -1,0 +1,47 @@
+.cities-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.city-sm-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #4597F7 0%, #1659A9 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 12px;
+  margin: 12px;
+  padding: 12px;
+  height: 200px;
+  width: 150px;
+}
+
+.cities-viewport {
+  height: 250px;
+  width: 680px;
+  overflow: hidden;
+}
+.btn-scroll-next {
+  opacity: 0;
+  position: relative;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #457EFF 100%, #1659A9 0%);
+  color: #fff;
+  font-weight: 500;
+  font-size: 25px;
+  border: none;
+  width: 50px;
+  height: 50px;
+  left: 5px;
+  top: -160px;
+  &.next {
+    left: 575px;
+  }
+  &:hover {
+    opacity: 1
+  }
+}
