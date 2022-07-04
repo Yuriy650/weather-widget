@@ -2,6 +2,9 @@ import {EventEmitter, Output} from "@angular/core";
 import { Component } from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Coord} from "../../model/weather-data.interface";
+import {Store} from "@ngrx/store";
+import {addCoord} from "../../state/weather.actions";
+import {selectCoords} from "../../state/weather.selectors";
 
 @Component({
   selector: 'app-coord-form',
@@ -12,7 +15,8 @@ import {Coord} from "../../model/weather-data.interface";
 export class CoordFormComponent {
   @Output() coordEvent = new EventEmitter<Coord>();
   public coordForm: FormGroup;
-  constructor(private readonly fb: FormBuilder,) {
+  constructor(private readonly fb: FormBuilder,
+              private readonly store$: Store) {
     this.coordForm = this.buildForm();
   }
   private buildForm(): FormGroup {
@@ -23,5 +27,8 @@ export class CoordFormComponent {
   }
   public findCity() {
     this.coordEvent.emit(this.coordForm.value)
+    //console.log(this.coordForm.value)
+    this.store$.dispatch(addCoord({payload: this.coordForm.value}))
+    this.coordForm.reset()
   }
 }

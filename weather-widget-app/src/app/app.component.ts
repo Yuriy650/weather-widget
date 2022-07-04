@@ -1,5 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {Coord, WeatherData} from "./model/weather-data.interface";
+import {selectCoords} from "./state/weather.selectors";
+import {Store} from "@ngrx/store";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -7,14 +10,19 @@ import {Coord, WeatherData} from "./model/weather-data.interface";
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   title = 'weather-widget-app';
   public coordinates: Coord;
   public currentId: string = '';
-  public citiesArray: WeatherData[] = []
-  constructor() {
+  public citiesArray: WeatherData[] = [];
+  //private _subCoords = Subscription.EMPTY;
 
+  constructor(private readonly store$: Store) {
     this.coordinates = {lat: null, lon: null}
+  }
+
+  ngOnDestroy() {
+    //this._subCoords.unsubscribe()
   }
 
   public getCities(cities: any) {
@@ -26,7 +34,10 @@ export class AppComponent {
   public getCurrentCityId(id: string) {
     this.currentId = id
   }
+
   public getCoordinates(coord: Coord) {
+
     this.coordinates = coord
+    console.log(this.coordinates)
   }
 }

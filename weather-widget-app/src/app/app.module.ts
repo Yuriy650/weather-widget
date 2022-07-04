@@ -13,7 +13,8 @@ import {OverlayModule} from "@angular/cdk/overlay";
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CoordFormComponent} from "./components/coord-form/coord-form.component";
 import {StoreModule} from "@ngrx/store";
-import {weatherReducer} from "./state/weather.reducer";
+import {coordReducer} from "./state/reducers/coords.reducer";
+import {cityReducer} from "./state/reducers/city.reducer";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import {weatherReducer} from "./state/weather.reducer";
     ReactiveFormsModule,
     OverlayModule,
     ScrollingModule,
-    StoreModule.forRoot({ weather: weatherReducer }),
+    StoreModule.forRoot({
+      city: cityReducer,
+      coords: coordReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,7 +9,7 @@ export const addCityId = createAction(
 
 export const addCoord = createAction(
   '[Add Coord] Add Coord',
-  props<{ coord: Coord }>()
+  props<{ payload: Coord }>()
 )
 
 export const getCitiesWeather = createAction(

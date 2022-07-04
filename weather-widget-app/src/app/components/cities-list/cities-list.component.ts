@@ -31,7 +31,7 @@ export class CitiesListComponent {
   }
   public getCurrentCity(city: WeatherData) {
     this.store$.dispatch(addCityId({cityId: city.id}))
-    this.cityIdEvent.emit(city.id)
+    this.cityIdEvent.emit(city.id);
   }
   public onScroll($event: any): void {
     this.scrolledFromLeft = $event.target.scrollLeft;
