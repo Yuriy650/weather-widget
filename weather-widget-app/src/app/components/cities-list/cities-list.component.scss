@@ -16,12 +16,33 @@
   border-radius: 12px;
   margin: 12px;
   padding: 12px;
-  height: 200px;
-  width: 150px;
+  height: 220px;
+  width: 160px;
+  cursor: pointer;
+  &.current {
+    background: #1133ff;
+    border: 2px solid #4597F7;
+  }
+  &:hover {
+    background: linear-gradient(180deg, #4597F7 100%, #1659A9 100%);
+  }
+}
+.top-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  &-country {
+    margin-left: 4px;
+  }
+}
+.coords {
+  margin-bottom: 6px;
+  font-size: 12px;
 }
 
 .cities-viewport {
-  height: 250px;
+  height: 280px;
   width: 680px;
   overflow: hidden;
 }

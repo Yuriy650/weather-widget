@@ -3,10 +3,22 @@
                              class="cities-viewport"
                              itemSize="150">
   <div class="cities-list">
-    <div (click)="getCurrentCity(city)" *ngFor="let city of cities" class="city-sm-card">
-      <div>{{ city?.sys?.country }}</div>
+    <div (click)="getCurrentCity(city)"
+         *ngFor="let city of cities"
+         class="city-sm-card"
+         [class.current]="(geoId$ | async) === city.id">
+      <div class="top-title">
+        <img
+          class="parameters-img country"
+          src="/assets/images/country.png"
+          alt="humidity"
+          height="14px"
+          width="14px">
+        <div class="top-title-country">{{ city?.sys?.country }}</div>
+      </div>
       <div>{{ city.name }}</div>
-      <app-weather-condition [weatherData]="city"></app-weather-condition>
+      <div class="coords">coords: ({{ city?.coord?.lat }}, {{ city?.coord?.lon }})</div>
+      <app-weather-condition [weatherData]="city" [isDetails]="true"></app-weather-condition>
     </div>
   </div>
 </cdk-virtual-scroll-viewport>

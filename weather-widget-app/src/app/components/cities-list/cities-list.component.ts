@@ -1,4 +1,4 @@
-import { Input } from "@angular/core";
+import {Input, OnChanges, OnDestroy} from "@angular/core";
 import { EventEmitter } from "@angular/core";
 import { ViewChild } from "@angular/core";
 import { Output } from "@angular/core";
@@ -8,8 +8,9 @@ import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {Store} from "@ngrx/store";
 import {addCityId} from "../../state/weather.actions";
-import {selectCityId} from "../../state/weather.selectors";
-import {ICityWeatherState} from "../../state/weather.state";
+import {selectCitiesList, selectCityId, selectCurrentLocationId} from "../../state/weather.selectors";
+import {Observable, Subscription} from "rxjs";
+import { SimpleChanges } from "@angular/core";
 
 @Component({
   selector: 'app-cities-list',
@@ -17,21 +18,30 @@ import {ICityWeatherState} from "../../state/weather.state";
   styleUrls: ['./cities-list.component.scss']
 })
 
-export class CitiesListComponent {
+export class CitiesListComponent implements OnChanges, OnDestroy {
   @ViewChild('scrollRef')
   public scrollbarRef!: CdkVirtualScrollViewport;
   public scrolledFromLeft: number;
-
-  @Input() cities!: WeatherData[];
-  @Output() cityIdEvent = new EventEmitter<string>();
+  public cities: WeatherData[] = [];
+  public geoId = '';
+  public _citiesList = Subscription.EMPTY;
+  public _geoId = Subscription.EMPTY;
+  public geoId$: Observable<string>
   constructor(private readonly store$: Store) {
     this.scrolledFromLeft = 0;
-    this.store$.select(selectCityId).subscribe(id=>console.log(id))
-
+    this._citiesList = this.store$.select(selectCitiesList).subscribe(cities => this.cities = cities);
+    this.geoId$ = this.store$.select(selectCurrentLocationId)
   }
+  ngOnChanges(changes: SimpleChanges) {
+    this._citiesList.unsubscribe()
+  }
+  ngOnDestroy() {
+    this._citiesList.unsubscribe();
+    this._geoId.unsubscribe()
+  }
+
   public getCurrentCity(city: WeatherData) {
     this.store$.dispatch(addCityId({cityId: city.id}))
-    this.cityIdEvent.emit(city.id);
   }
   public onScroll($event: any): void {
     this.scrolledFromLeft = $event.target.scrollLeft;

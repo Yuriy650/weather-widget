@@ -15,6 +15,8 @@ import {CoordFormComponent} from "./components/coord-form/coord-form.component";
 import {StoreModule} from "@ngrx/store";
 import {coordReducer} from "./state/reducers/coords.reducer";
 import {cityReducer} from "./state/reducers/city.reducer";
+import {citiesListReducer} from "./state/reducers/cities-list.reducer";
+import {locationIdReducer} from "./state/reducers/location-id.reducer";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,10 @@ import {cityReducer} from "./state/reducers/city.reducer";
     ScrollingModule,
     StoreModule.forRoot({
       city: cityReducer,
-      coords: coordReducer }),
+      coords: coordReducer,
+      list: citiesListReducer,
+      locationId: locationIdReducer},
+      ),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,73 +1,38 @@
-import {Component, EventEmitter, OnChanges, OnDestroy, SimpleChanges} from "@angular/core";
+import {Component, OnDestroy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {FetchWeatherService} from "../../services/fetch-weather.service";
 import {Coord, WeatherData} from "../../model/weather-data.interface";
-import {Input} from "@angular/core";
-import { Output } from "@angular/core";
 import {Store} from "@ngrx/store";
-import {selectCoords} from "../../state/weather.selectors";
+import {selectCityId, selectCoords, selectCurrentLocationId} from "../../state/weather.selectors";
 import {Subscription} from "rxjs";
+import {addCurrentLocationId, getCitiesWeather} from "../../state/weather.actions";
 
 @Component({
   selector: 'app-city-card',
   templateUrl: './city-card.component.html',
   styleUrls: ['./city-card.component.scss']
 })
-export class CityCardComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() coordinates: Coord = {lat: null, lon: null}
-  @Input() currentId: string = '';
-  @Output() citiesEvent = new EventEmitter();
+export class CityCardComponent implements OnInit, OnDestroy {
   weatherData!: WeatherData;
   coords!: Coord | null;
   date: number;
   citiesArray: (string|null)[] = [];
   _subCoord = Subscription.EMPTY;
   _subCityId = Subscription.EMPTY;
+  geoLocationId!: string;
   constructor(private readonly weatherService: FetchWeatherService,
               private readonly store$: Store) {
-    this.getWeather()
     this.date = Date.now();
-    /*this._subCoord = this.store$.select(selectCoords).subscribe(coords => {
-      //this.coords = coords;
-      this.getWeather(coords?.lat, coords?.lon);
-    });*/
+    this.findByCoord();
+    this.selectById();
   }
-
- ngOnChanges(changes: SimpleChanges): void {
-    this.getWeather(changes?.coordinates?.currentValue?.latitude, changes?.coordinates?.currentValue?.longitude, changes?.currentId?.currentValue);
-    }
   ngOnInit() {
-    this.getWeather();
     this.getPosition()
-    this.getCities();
+    this.getCities()
   }
   ngOnDestroy() {
-    this._subCoord.unsubscribe()
-  }
-
-  public getWeather(latitude: number | null = 0 , longitude: number | null = 0, id = '') {
-    if(latitude && longitude) {
-      this.weatherService.getWeatherData(latitude, longitude).subscribe(data => {
-        this.weatherData = data;
-        this.addCity(data);
-        this.getCities()
-      })
-    } else if (id) {
-      this.getCurrentCityWeather(id)
-    }
-    else {
-      this.getPosition()
-    }
-  }
-  public getPosition() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const lat = Math.round(position.coords.latitude);
-      const lon = Math.round(position.coords.longitude);
-      this.weatherService.getWeatherData(lat, lon).subscribe(data => {
-        this.weatherData = data;
-        this.addCity(data);
-      })
-    });
+    this._subCoord.unsubscribe();
+    this._subCityId.unsubscribe()
   }
   public getCurrentCityWeather(id: string) {
     // @ts-ignore
@@ -80,12 +45,51 @@ export class CityCardComponent implements OnInit, OnDestroy, OnChanges {
     while (i--) {
       values.push(localStorage.getItem(keys[i]));
     }
-    console.log('cities', values)
-    this.citiesArray = values;
-    this.citiesEvent.emit(this.citiesArray)
+    // @ts-ignore
+    this.citiesArray = values.map(item => JSON.parse(item));
+    this.store$.select(selectCurrentLocationId).subscribe(id => {
+      this.geoLocationId = id;
+      // @ts-ignore
+      const citiesList = this.citiesArray.reduce((acc: WeatherData[], element: WeatherData) => {
+        if (element.id === id) {
+          return [element, ...acc];
+        }
+        return [...acc, element];
+      }, []);
+      // @ts-ignore
+      this.store$.dispatch(getCitiesWeather({payload: citiesList}))
+    })
+  }
+  public getPosition() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = Math.round(position.coords.latitude);
+      const lon = Math.round(position.coords.longitude);
+      this.weatherService.getWeatherData(lat, lon).subscribe(data => {
+        this.weatherData = data;
+        this.geoLocationId = this.weatherData.id;
+        this.store$.dispatch(addCurrentLocationId({payload: this.geoLocationId}))
+        this.addCity(data);
+      })
+    });
   }
   public addCity(weatherData: WeatherData) {
-    //console.log(this.weatherData)
     localStorage.setItem(weatherData.id, JSON.stringify(weatherData));
+  }
+  public findByCoord() {
+    this._subCoord = this.store$.select(selectCoords).subscribe(coords => {
+      this.coords = coords;
+      if(coords?.lat && coords?.lon) {
+        this.weatherService.getWeatherData(coords.lat, coords.lon).subscribe(data => {
+          this.weatherData = data;
+          this.addCity(data);
+          this.getCities()
+        })
+      }
+    });
+  }
+  public selectById() {
+    this._subCityId = this.store$.select(selectCityId).subscribe(id => {
+      if(id) this.getCurrentCityWeather(id)
+    })
   }
 }

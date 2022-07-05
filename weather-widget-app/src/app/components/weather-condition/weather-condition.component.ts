@@ -9,5 +9,7 @@ import {WeatherData} from "../../model/weather-data.interface";
 })
 
 export class WeatherConditionComponent {
-  @Input() weatherData!: WeatherData
+  title = 'Weather condition'
+  @Input() weatherData!: WeatherData;
+  @Input() isDetails = false;
 }
