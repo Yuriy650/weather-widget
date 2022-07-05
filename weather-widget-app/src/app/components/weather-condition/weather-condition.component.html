@@ -1,11 +1,11 @@
-<img *ngIf="weatherData.weather[0].main === 'Clouds'" alt="clouds" class="weather-icon"
+<img *ngIf="weatherData && weatherData.weather[0]?.main === 'Clouds'" alt="clouds" class="weather-icon"
      src="/assets/images/sun-sm-cloud-icon.png">
-<img *ngIf="weatherData.weather[0].main === 'Rain'" alt="rain" class="weather-icon" src="/assets/images/rain-icon.png">
-<img *ngIf="weatherData.weather[0].main === 'Clear'" alt="sun" class="weather-icon" src="/assets/images/sun-small.png">
-<img *ngIf="weatherData.weather[0].main === 'Snow'" alt="snow" class="weather-icon" src="/assets/images/snow-icon.png">
+<img *ngIf="weatherData && weatherData.weather[0]?.main === 'Rain'" alt="rain" class="weather-icon" src="/assets/images/rain-icon.png">
+<img *ngIf="weatherData && weatherData.weather[0]?.main === 'Clear'" alt="sun" class="weather-icon" src="/assets/images/sun-small.png">
+<img *ngIf="weatherData && weatherData.weather[0]?.main === 'Snow'" alt="snow" class="weather-icon" src="/assets/images/snow-icon.png">
 <div class="description">
   <img alt="thermometer" width="16px" height="16px" src="https://upload.wikimedia.org/wikipedia/en/d/d5/Thermometer_icon.png">
-  <div class="temp-title" *ngIf="isDetails">{{ weatherData.main.temp }}°</div>
-  <div class="weather-title">{{ weatherData.weather[0].main }}</div>
+  <div class="temp-title" *ngIf="isDetails">{{ weatherData && weatherData.main?.temp }}°</div>
+  <div class="weather-title">{{ weatherData && weatherData.weather[0]?.main }}</div>
 </div>
 

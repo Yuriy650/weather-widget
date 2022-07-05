@@ -19,6 +19,7 @@
       <div>{{ city.name }}</div>
       <div class="coords">coords: ({{ city?.coord?.lat }}, {{ city?.coord?.lon }})</div>
       <app-weather-condition [weatherData]="city" [isDetails]="true"></app-weather-condition>
+      <button class="btn-del" (click)="removeCity(city?.id)">x</button>
     </div>
   </div>
 </cdk-virtual-scroll-viewport>

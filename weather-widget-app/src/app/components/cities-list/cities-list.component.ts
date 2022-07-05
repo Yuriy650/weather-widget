@@ -11,6 +11,7 @@ import {addCityId} from "../../state/weather.actions";
 import {selectCitiesList, selectCityId, selectCurrentLocationId} from "../../state/weather.selectors";
 import {Observable, Subscription} from "rxjs";
 import { SimpleChanges } from "@angular/core";
+import {filter, map} from "rxjs/operators";
 
 @Component({
   selector: 'app-cities-list',
@@ -58,5 +59,12 @@ export class CitiesListComponent implements OnChanges, OnDestroy {
       left: this.scrolledFromLeft - 160,
       behavior: 'smooth',
     });
+  }
+
+  public removeCity(id: string | undefined) {
+    if(id) {
+      localStorage.removeItem(id)
+     this.cities = this.cities.filter(item => item.id !== id)
+    }
   }
 }
