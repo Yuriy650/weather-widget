@@ -50,6 +50,9 @@
   height: 280px;
   width: 680px;
   overflow: hidden;
+  @media (max-width: 767px) {
+    width: 500px
+  }
 }
 .btn-scroll-next {
   opacity: 0;
@@ -89,4 +92,7 @@
   left: 75px;
   padding: 4px;
   cursor: pointer;
+}
+.icon {
+  color: red;
 }

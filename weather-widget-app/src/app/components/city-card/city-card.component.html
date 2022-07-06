@@ -1,24 +1,25 @@
-<div class="left-block">
-  <div class="city">
-    <div class="parameters">
-      <img
-        class="parameters-img country"
-        src="~/assets/images/country.png"
-        alt="humidity"
-        height="25px"
-        width="25px">
-      <div class="parameters-country">{{ weatherData?.sys?.country }}</div>
-    </div>
+<div class="top-block">
+  <div class="city-description">
+    <div class="city">
+      <div class="parameters">
+        <mat-icon class="icon">room</mat-icon>
+        <div class="parameters-country">{{ weatherData?.sys?.country }}</div>
+      </div>
       <div class="city-name">{{weatherData?.name}}</div>
+    </div>
+    <div class="coords">
+      <div class="coords-param">latitude: {{weatherData?.coord?.lat}}</div>
+      <div class="coords-param">longitude: {{weatherData?.coord?.lon}}</div>
+    </div>
   </div>
-  <div class="coords">
-    <div class="coords-param">latitude: {{weatherData?.coord?.lat}}</div>
-    <div class="coords-param">longitude: {{weatherData?.coord?.lon}}</div>
-  </div>
+    <app-coord-form></app-coord-form>
+ </div>
+<div class="bottom-block">
+  <div class="left-block">
   <div class="city-date">{{date | date:'MMMM d'}}</div>
   <div class="city-date">{{date | date:'EEEE'}}</div>
   <div class="temperature">
-    <img alt="thermometer" width="50px" height="50px" src="https://upload.wikimedia.org/wikipedia/en/d/d5/Thermometer_icon.png">
+    <img class="thermometer" alt="thermometer" src="https://upload.wikimedia.org/wikipedia/en/d/d5/Thermometer_icon.png">
     <div class="temp-real">{{weatherData?.main?.temp}}°</div>
   </div>
   <div class="temp-feel">Feels like {{weatherData?.main?.feels_like}}°</div>
@@ -71,5 +72,5 @@
     <div class="parameters-data">{{ weatherData?.main?.pressure }} mb</div>
   </div>
 </div>
-
+</div>
 

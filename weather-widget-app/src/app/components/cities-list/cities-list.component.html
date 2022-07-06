@@ -8,12 +8,7 @@
          class="city-sm-card"
          [class.current]="(geoId$ | async) === city.id">
       <div class="top-title">
-        <img
-          class="parameters-img country"
-          src="/assets/images/country.png"
-          alt="humidity"
-          height="14px"
-          width="14px">
+        <mat-icon class="icon">room</mat-icon>
         <div class="top-title-country">{{ city?.sys?.country }}</div>
       </div>
       <div>{{ city.name }}</div>

@@ -1,26 +1,23 @@
 :host {
   width: 100%;
-  max-width: 685px;
 }
 .coordinates-form {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
-  background-image: linear-gradient(to bottom, #4597F7 100%, #1659A9 0%);
-  border-radius: 12px 12px 0 0;
   color: #fff;
-  padding: 24px 24px 0 12px;
 }
 
 .btn-find {
   border: none;
-  padding: 12px;
+  padding: 18px;
   border-radius: 12px;
   color: #fff;
   background: linear-gradient(to bottom, #457EFF 100%, #1659A9 0%);
   font-size: 16px;
   font-weight: 600;
+  max-width: 150px;
   &:hover {
     background: #1659A9;
     cursor: pointer;
@@ -29,9 +26,10 @@
 .coord {
   border: none;
   outline: none;
-  padding: 12px;
+  padding: 8px;
   border-radius: 12px;
-
+  margin-right: 8px;
+  max-width: 60px;
   &-block {
     display: flex;
     flex-direction: column;

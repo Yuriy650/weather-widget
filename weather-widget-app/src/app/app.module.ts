@@ -17,6 +17,7 @@ import {coordReducer} from "./state/reducers/coords.reducer";
 import {cityReducer} from "./state/reducers/city.reducer";
 import {citiesListReducer} from "./state/reducers/cities-list.reducer";
 import {locationIdReducer} from "./state/reducers/location-id.reducer";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -26,24 +27,26 @@ import {locationIdReducer} from "./state/reducers/location-id.reducer";
     CitiesListComponent,
     CoordFormComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    OverlayModule,
-    ScrollingModule,
-    StoreModule.forRoot({
-      city: cityReducer,
-      coords: coordReducer,
-      list: citiesListReducer,
-      locationId: locationIdReducer},
-      ),
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        OverlayModule,
+        ScrollingModule,
+        StoreModule.forRoot({
+                city: cityReducer,
+                coords: coordReducer,
+                list: citiesListReducer,
+                locationId: locationIdReducer
+            },
+        ),
+        MatIconModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

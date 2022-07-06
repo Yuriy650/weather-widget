@@ -1,36 +1,72 @@
 :host {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   width: 100%;
   max-width: 650px;
   background-image: linear-gradient(180deg, #4597F7 0%, #1659A9 100%);
-  border-radius: 0 0 12px 12px;
+  border-radius: 12px;
   color: #fff;
   padding: 12px 24px 24px 12px;
 }
 
-.left-block {
+.top-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.bottom-block {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
 }
 
 .temperature {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 25px;
+}
+
+.thermometer {
+  width: 50px;
+  height: 50px;
+  @media (max-width: 767px) {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.icon {
+  color: red
 }
 
 .temp {
   &-real {
     font-size: 50px;
     font-weight: 600;
+    @media (max-width: 767px) {
+      font-size: 18px;
+      font-weight: 500;
+    }
   }
 
   &-feel {
     padding-left: 50px;
     font-weight: 500;
     font-size: 16px;
+    @media (max-width: 767px) {
+      font-size: 12px;
+      font-weight: 500;
+      padding-left: 12px;
+    }
   }
 }
 
@@ -38,7 +74,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 12px;
 
   &-name {
     font-size: 18px;
@@ -89,6 +124,9 @@
     font-size: 12px;
     margin-right: 8px;
   }
+}
+.city-description {
+width: 100%;
 }
 
 
