@@ -25,6 +25,7 @@ export class CityCardComponent implements OnInit, OnDestroy {
     this.date = Date.now();
     this.findByCoord();
     this.selectById();
+    this.getPosition()
   }
   ngOnInit() {
     this.getPosition()
