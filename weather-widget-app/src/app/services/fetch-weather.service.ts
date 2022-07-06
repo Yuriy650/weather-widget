@@ -11,7 +11,7 @@ export class FetchWeatherService {
   constructor(private http: HttpClient) {
 
   }
-  getWeatherData(lat: number, lon: number): Observable<WeatherData> {
+  getWeatherData(lat: number = 50, lon: number = 24): Observable<WeatherData> {
     return this.http.get<WeatherData>(`https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lon}`)
   }
 
