@@ -1,7 +1,10 @@
 {
+  "homepage": "https://Yuriy650.github.io/weather-widget",
   "name": "weather-widget-app",
   "version": "0.0.0",
   "scripts": {
+    "predeploy": "npm run build -- --prod=true --base-href=https://Yuriy650.github.io/weather-widget/",
+    "deploy": "@powershell copy dist/weather-widget/index.html dist/weather-widget/404.html && gh-pages -d dist/weather-widget",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
